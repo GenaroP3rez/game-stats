@@ -22,7 +22,19 @@ public class GameStatsRunner {
       checkPerson(person);
       return gameCounts.get(person);
     }
+//w2
+private Map<String, Integer>  highScores;
 
+highScores = new HashMap<>();
+
+if (!highScores.containsKey(name) || scores > highScores.get(name)){
+    highScores.put(name, score);
+}
+
+@Override public int highScore(String person){
+  checkPerson(person);
+  return highScores.get(person);
+}
 
 
 
