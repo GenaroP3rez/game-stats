@@ -6,6 +6,15 @@ import java.util.Scanner;
 
 public class MapGameStatsCalculator implements GameStatsCalculator {
 
+  if (!gameCounts.containsKey(name)){
+    gameCounts.put(name, 0);
+
+  }
+  gameCounts.put(name, gameCounts.getname + 1);
+
+  @Override 
+  public int game
+
   /**
    * A map of names to # of games completed.
    * 
