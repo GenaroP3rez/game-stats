@@ -56,8 +56,24 @@ public String highestScore(){
   }
   return bestPerson;
 
+//w4
+private Map<String, Integer> totalScores;
+totalScores = new HashMap<>();
+if (!totalScores.containsKey(name)) {
+    totalScores.put(name, 0);
+}
+totalScores.put(name, totalScores.get(name) + scores);
 
 
+@Override 
+public double getAverageScore(String person){
+  checkPerson(person);
+
+  int total = totalScores.get(person);
+  int count = gameCounts.get(person);
+
+  return (double) total / count;
+}
 
     // Ask for filenames until we successfully create a calculator.
     GameStatsCalculator calculator = makeCalculator(console);
