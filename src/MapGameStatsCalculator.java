@@ -1,48 +1,32 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class MapGameStatsCalculator implements GameStatsCalculator {
 
-  //instance
-  private Map<String, Integer> gameCounts;
-  private Map<String, Integer> highScores;
-  private Map<String, Integer> totalScores;
-  private Map<String, List<Integer>> scoresByPerson;
-
-//public MapGameStatsCalculator(Scanner scoresInput) {
-
-  
-  // if (!gameCounts.containsKey(name)){
-  //   gameCounts.put(name, 0);
-
-  // }
-  // gameCounts.put(name, gameCounts.getname + 1);
-
-  // @Override 
-  // public int game
-
   /**
    * A map of names to # of games completed.
-   * 
-   * For example if Nupur completed 3 games, Baya completed 5 games, and Xinting completed one game,
-   * the map would look something like:
-   * 
-   * {
-   *  "Nupur": 3,
-   *  "Baya": 5,
-   *  "Xinting": 1
-   * }
    */
-//private Map<String, Integer> gameCounts;
+  private Map<String, Integer> gameCounts;
 
-  // For some waves you will need to add more private instance variables here!
+  /**
+   * A map of names to their highest score.
+   */
+  private Map<String, Integer> highScores;
 
+  /**
+   * A map of names to their total score.
+   */
+  private Map<String, Integer> totalScores;
 
+  /**
+   * A map of names to all of their scores.
+   */
+  private Map<String, List<Integer>> scoresByPerson;
 
   public MapGameStatsCalculator(Scanner scoreInput) {
     gameCounts = new HashMap<>();
@@ -50,48 +34,34 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
     totalScores = new HashMap<>();
     scoresByPerson = new HashMap<>();
 
-    while(scoreInput.hasNext()) {
-if (!scoresByPerson.containsKey(name)){
-      scoresByPerson.put(name, new ArrayList<>());
-
-    }
-    scoresByPerson.get(name).add(score);
-
-
-
+    while (scoreInput.hasNext()) {
       String name = scoreInput.next();
       int score = scoreInput.nextInt();
 
-
-
-
-
-
-
-      // TODO: add logic here to use the name and score to fill your map(s)!
-
-
-    //String name = scpresInput.next();
-   // int score = scoresInput.nextInt();
-
-      if (!gameCounts.containsKey(name)){
+      // Count how many games this person has played.
+      if (!gameCounts.containsKey(name)) {
         gameCounts.put(name, 0);
-
       }
       gameCounts.put(name, gameCounts.get(name) + 1);
 
-      if (!highScores.containsKey(name) || score >highScores.get(name)){
+      // Track this person's highest score.
+      if (!highScores.containsKey(name) || score > highScores.get(name)) {
         highScores.put(name, score);
       }
+
+      // Track this person's total score.
       if (!totalScores.containsKey(name)) {
         totalScores.put(name, 0);
-
       }
       totalScores.put(name, totalScores.get(name) + score);
 
+      // Track all scores for this person.
+      if (!scoresByPerson.containsKey(name)) {
+        scoresByPerson.put(name, new ArrayList<>());
+      }
+      scoresByPerson.get(name).add(score);
     }
   }
-
 
   /**
    * Returns the number of games a person has played.
@@ -102,14 +72,8 @@ if (!scoresByPerson.containsKey(name)){
    */
   @Override
   public int gameCount(String person) {
-    // TODO: remove this exception once you have implemented your method!
-    //row new UnsupportedOperationException("Unimplemented method 'gameCount'");
-
     checkPerson(person);
     return gameCounts.get(person);
-
-    // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkPerson(person);
   }
 
   /**
@@ -121,14 +85,8 @@ if (!scoresByPerson.containsKey(name)){
    */
   @Override
   public int highScore(String person) {
-    // TODO: remove this exception once you have implemented your method!
-    //row new UnsupportedOperationException("Unimplemented method 'highScore'");
-
-
     checkPerson(person);
     return highScores.get(person);
-    // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkPerson(person);
   }
 
   /**
@@ -142,29 +100,22 @@ if (!scoresByPerson.containsKey(name)){
    */
   @Override
   public String highestScorer() {
-    // TODO: remove this exception once you have implemented your method!
-    //row new UnsupportedOperationException("Unimplemented method 'highestScorer'");
-
-    // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkScoreData();
-
     checkScoreData();
 
     String bestPerson = null;
     int bestScore = Integer.MIN_VALUE;
 
-
     for (String person : highScores.keySet()) {
-
       int score = highScores.get(person);
 
       if (bestPerson == null ||
-        score > bestScore ||
-        score == bestScore && person.compareTo(bestPerson) < 0){
-          bestPerson = person;
-          bestScore = score;
-        }
+          score > bestScore ||
+          score == bestScore && person.compareTo(bestPerson) < 0) {
+        bestPerson = person;
+        bestScore = score;
+      }
     }
+
     return bestPerson;
   }
 
@@ -177,15 +128,12 @@ if (!scoresByPerson.containsKey(name)){
    */
   @Override
   public double getAverageScore(String person) {
-    // TODO: remove this exception once you have implemented your method!
-  //throw new UnsupportedOperationException("Unimplemented method 'getAverageScore'");
-
-    // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
     checkPerson(person);
+
     int total = totalScores.get(person);
     int count = gameCounts.get(person);
 
-    return (double)  total / count;
+    return (double) total / count;
   }
 
   /**
@@ -199,51 +147,28 @@ if (!scoresByPerson.containsKey(name)){
    */
   @Override
   public String highestAverageScorer() {
-    // TODO: remove this exception once you have implemented your method!
-  //throw new UnsupportedOperationException("Unimplemented method 'highestAverageScorer'");
-
-    // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
     checkScoreData();
 
     String bestPerson = null;
     double bestAverage = Double.NEGATIVE_INFINITY;
 
-    for (String person : gameCounts.keySet()){
-   ;//double average = getAverageScores(person)
-  //  int score = highestScores.get(person);
-  double average = getAverageScore(person);
+    for (String person : gameCounts.keySet()) {
+      double average = getAverageScore(person);
 
-if (bestPerson == null || 
-  average > bestAverage || 
-  average ==  bestAverage && person.compareTo(bestPerson) < 0) {
-    bestPerson = person;
-    bestAverage = average;
+      if (bestPerson == null ||
+          average > bestAverage ||
+          average == bestAverage && person.compareTo(bestPerson) < 0) {
+        bestPerson = person;
+        bestAverage = average;
+      }
+    }
 
+    return bestPerson;
   }
-}
-return bestPerson;
-
-//added 
-  }
-
-
-  
-//     if (bestPerson == null ||
-//       average > bestAverage ||
-//      bestPerson = person;
-//      bestAverage = average;
-//   }
-// }
-// return bestPerson;
-// }
-
-
-
-
-
 
   /**
-   * Returns a list of the scores a person has gotten, sorted in ascending order (lowest to highest).
+   * Returns a list of the scores a person has gotten, sorted in ascending order
+   * from lowest to highest.
    * 
    * @param person the name of the person to query
    * @return a list of the scores the person received in ascending order
@@ -251,46 +176,39 @@ return bestPerson;
    */
   @Override
   public List<Integer> sortedScores(String person) {
-
-    //checkPerson(person);
-
-
-    // TODO: remove this exception once you have implemented your method!
-    //throw new UnsupportedOperationException("Unimplemented method 'sortedScores'");
-
-    // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
     checkPerson(person);
 
-    List<Integer> scores = new ArrayList<>(scoresByPerson.get(person));
+    List<Integer> scoresCopy = new ArrayList<>(scoresByPerson.get(person));
     Collections.sort(scoresCopy);
+
+    return scoresCopy;
   }
-  return scoresCopy;
-}
-  
+
   /**
    * Throws an exception if the given person is null or was not present in the score data.
    * Does nothing if the person is present.
    * 
    * @param person the person to check
    * @throws NullPointerException if the person String is null
-   * @throws NoSuchElementException if the person does not appear in the gameCounts
+   * @throws NoSuchElementException if the person does not appear in gameCounts
    */
   private void checkPerson(String person) {
-    if(person == null) {
+    if (person == null) {
       throw new NullPointerException("Cannot query for null person");
     }
-    if(!gameCounts.containsKey(person)) {
+    if (!gameCounts.containsKey(person)) {
       throw new NoSuchElementException("Person " + person + " does not exist in the score data");
     }
   }
 
   /**
-   * Throws an exception if there is no score data in gameCounts. Does nothing if score data exists.
+   * Throws an exception if there is no score data in gameCounts.
+   * Does nothing if score data exists.
    * 
    * @throws NoSuchElementException if there is no score data
    */
   private void checkScoreData() {
-    if(gameCounts.isEmpty()) {
+    if (gameCounts.isEmpty()) {
       throw new NoSuchElementException("No score data parsed");
     }
   }

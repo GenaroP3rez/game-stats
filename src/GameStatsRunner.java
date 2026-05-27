@@ -3,101 +3,11 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class GameStatsRunner {
 
   public static void main(String[] args) {
     Scanner console = new Scanner(System.in);
-
-
-    //W5
-    // private Map<String, List<integer>> scoresByperson;
-    // scoresByPerson = new HashMap<>();
-
-    if (!scoresByPerson.containsKey(name)){
-
-      scoresByPerson.put(name, new ArrayList<.());
-    }
-    scoresByPrson.get(name).add(scores);
-
-    //W5
-    @Override 
-    public List<Integer> sortedScores(String person){
-      checkPerson(person);
-
-      List<Integer> scoresCopy = newArrayList<.(ScoresByPerson.get(person));
-      Collectons.sort(scoresCopy);
-
-      return scoresCopy;
-    }
-
-
-    //added logic w1
-    if (!gameCounts.containsKey(name)){
-      gameCounts.put(name, 0);
-    }
-    gameCounts/put(name, gameCounts.get(name) + 1);
-
-    //oberride W1
-    @Override 
-    public int gameCount(String person){
-      checkPerson(person);
-      return gameCounts.get(person);
-    }
-//w2
-private Map<String, Integer>  highScores;
-
-highScores = new HashMap<>();
-
-if (!highScores.containsKey(name) || scores > highScores.get(name)){
-    highScores.put(name, score);
-}
-
-@Override public int highScore(String person){
-  checkPerson(person);
-  return highScores.get(person);
-}
-
-
-//w3
-@Override 
-public String highestScore(){
-  checkScoreData();
-
-  String bestPerson = null;
-  int bestScore = Integer.MIN_VALUE;
-  for (String person : highScores.keySet()) {
-    int score = highScores.get(person);
-
-    if (bestPerson == null ||
-      score > bestScore ||
-      score == bestScore && person.compareTo(bestPerson) < 0){
-        bestPerson = person;
-        bestScore = score;
-      }
-  }
-  return bestPerson;
-
-//w4
-private Map<String, Integer> totalScores;
-totalScores = new HashMap<>();
-if (!totalScores.containsKey(name)) {
-    totalScores.put(name, 0);
-}
-totalScores.put(name, totalScores.get(name) + scores);
-
-
-@Override 
-public double getAverageScore(String person){
-  checkPerson(person);
-
-  int total = totalScores.get(person);
-  int count = gameCounts.get(person);
-
-  return (double) total / count;
-}
 
     // Ask for filenames until we successfully create a calculator.
     GameStatsCalculator calculator = makeCalculator(console);
