@@ -3,9 +3,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class MapGameStatsCalculator implements GameStatsCalculator {
 
+  //instance
+  private Map<String, Integer> gameCounts;
+  private Map<String, Integer> highScores;
+  private Map<String, Integer> totalScorers;
+  private Map<String, List<Integer>> scoresByPerson;
+
+
+
+
+
+
+
+
+
+
+
+  
   if (!gameCounts.containsKey(name)){
     gameCounts.put(name, 0);
 
@@ -35,12 +54,24 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
 
   public MapGameStatsCalculator(Scanner scoreInput) {
     gameCounts = new HashMap<>();
+    highScores = new HashMap<>();
+    totalScores = new HashMap<>();
+    scoresByPerson = new HashMap<>();
 
     while(scoreInput.hasNext()) {
       String name = scoreInput.next();
       int score = scoreInput.nextInt();
 
+
+
+
+
+
+
       // TODO: add logic here to use the name and score to fill your map(s)!
+
+
+      String name = scpresInput.next();
     }
   }
 
@@ -107,7 +138,11 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
     throw new UnsupportedOperationException("Unimplemented method 'getAverageScore'");
 
     // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkPerson(person);
+    checkPerson(person);
+    int total = totalScores.get(person);
+    int count = gameCounts.get(person);
+
+    return (double) / total / count;
   }
 
   /**
@@ -125,8 +160,25 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
     throw new UnsupportedOperationException("Unimplemented method 'highestAverageScorer'");
 
     // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkScoreData();
+    checkScoreData();
+
+    String bestPerson = null;
+    double bestAverage = Double.NEGATIVE_INFINITY;
   }
+
+
+
+  for (String person : gameCounts.keySet()){
+    double average = getAverageScores(person);
+
+    if (bestPerson == null ||
+      average > bestAverage ||
+     bestPerson = person;
+     bestAverage = average;
+  }
+}
+return bestPerson;
+}
 
   /**
    * Returns a list of the scores a person has gotten, sorted in ascending order (lowest to highest).
@@ -137,11 +189,18 @@ public class MapGameStatsCalculator implements GameStatsCalculator {
    */
   @Override
   public List<Integer> sortedScores(String person) {
+
+    //checkPerson(person);
+
+
     // TODO: remove this exception once you have implemented your method!
-    throw new UnsupportedOperationException("Unimplemented method 'sortedScores'");
+    //throw new UnsupportedOperationException("Unimplemented method 'sortedScores'");
 
     // Uncomment this and have it as your first line once you remove the UnsupportedOperationException
-    //checkPerson(person);
+    checkPerson(person);
+
+    List<Integer> scores = new ArrayList<>(scoresByPerson.get(person));
+    Collections.sort(scoresCopy);
   }
   
   /**
